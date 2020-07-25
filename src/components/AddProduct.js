@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import withContext from "../withContext";
 import { Redirect } from "react-router-dom";
+
 const initState = {
   name: "",
   price: "",
@@ -8,11 +9,13 @@ const initState = {
   shortDesc: "",
   description: ""
 };
+
 class AddProduct extends Component {
   constructor(props) {
     super(props);
     this.state = initState;
   }
+
   save = e => {
     e.preventDefault();
     const { name, price, stock, shortDesc, description } = this.state;
@@ -31,8 +34,10 @@ class AddProduct extends Component {
       this.setState({ error: "Please Enter name and price" });
     }
   };
+
   handleChange = e =>
     this.setState({ [e.target.name]: e.target.value, error: "" });
+
   render() {
     const { name, price, stock, shortDesc, description } = this.state;
     const { user } = this.props.context;
@@ -123,4 +128,5 @@ class AddProduct extends Component {
     );
   }
 }
+
 export default withContext(AddProduct);

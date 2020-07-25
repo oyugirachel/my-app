@@ -1,19 +1,98 @@
 import React, { Component } from "react";
 import { Switch, Route, Link, BrowserRouter as Router } from "react-router-dom";
-import data from "./Data";
-import Context from "./Context";
 import Login from "./components/Login";
+import ProductList from "./components/ProductList";
 import AddProduct from "./components/AddProduct";
 import Cart from "./components/Cart";
-
+import data from "./data";
+import Context from "./Context";
 
 export default class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      user: null,
+      cart: {},
+      products: []
+    };
+
     this.routerRef = React.createRef();
   }
+  login = (usn, pwd) => {
+    let user = data.users.find(u => u.username === usn && u.password === pwd);
+    if (user) {
+      this.setState({ user });
+      localStorage.setItem("user", JSON.stringify(user));
+      return true;
+    }
+    return false;
+  };
 
+  logout = e => {
+    e.preventDefault();
+    this.setState({ user: null });
+    localStorage.removeItem("user");
+  };
+
+  addProduct = (product, callback) => {
+    let products = this.state.products.slice();
+    products.push(product);
+    localStorage.setItem("products", JSON.stringify(products));
+    this.setState({ products }, () => callback && callback());
+  };
+
+  addToCart = cartItem => {
+    let cart = this.state.cart;
+    if (cart[cartItem.id]) {
+      cart[cartItem.id].amount += cartItem.amount;
+    } else {
+      cart[cartItem.id] = cartItem;
+    }
+    if (cart[cartItem.id].amount > cart[cartItem.id].product.stock) {
+      cart[cartItem.id].amount = cart[cartItem.id].product.stock;
+    }
+    localStorage.setItem("cart", JSON.stringify(cart));
+    this.setState({ cart });
+  };
+
+  checkout = () => {
+    if (!this.state.user) {
+      this.routerRef.current.history.push("/login");
+      return;
+    }
+    const cart = this.state.cart;
+    const products = this.state.products.map(p => {
+      if (cart[p.name]) {
+        p.stock = p.stock - cart[p.name].amount;
+      }
+      return p;
+    });
+    this.setState({ products });
+    this.clearCart();
+  };
+
+  removeFromCart = cartItemId => {
+    let cart = this.state.cart;
+    delete cart[cartItemId];
+    localStorage.setItem("cart", JSON.stringify(cart));
+    this.setState({ cart });
+  };
+
+  clearCart = () => {
+    let cart = {};
+    localStorage.setItem("cart", JSON.stringify(cart));
+    this.setState({ cart });
+  };
+
+  componentDidMount() {
+    let products = localStorage.getItem("products");
+    let cart = localStorage.getItem("cart");
+    let user = localStorage.getItem("user");
+    products = products ? JSON.parse(products) : data.initProducts;
+    cart = cart ? JSON.parse(cart) : {};
+    user = user ? JSON.parse(user) : null;
+    this.setState({ products, user, cart });
+  }
 
   render() {
     return (
@@ -36,10 +115,12 @@ export default class App extends Component {
               aria-label="main navigation"
             >
               <div className="navbar-brand">
-                <b className="navbar-item is-size-4 ">ecommerce</b>
+                <b className="navbar-item is-size-4 ">MamaMboga</b>
+
                 <a
+                  href="/"
                   role="button"
-                  class="navbar-burger burger"
+                  className="navbar-burger burger"
                   aria-label="menu"
                   aria-expanded="false"
                   data-target="navbarBasicExample"
@@ -53,9 +134,11 @@ export default class App extends Component {
                   <span aria-hidden="true"></span>
                 </a>
               </div>
-              <div className={`navbar-menu ${
+              <div
+                className={`navbar-menu ${
                   this.state.showMenu ? "is-active" : ""
-                }`}>
+                }`}
+              >
                 <Link to="/products" className="navbar-item">
                   Products
                 </Link>
@@ -78,22 +161,19 @@ export default class App extends Component {
                     Login
                   </Link>
                 ) : (
-                  <a className="navbar-item" onClick={this.logout}>
+                  <a href="/" className="navbar-item" onClick={this.logout}>
                     Logout
                   </a>
                 )}
               </div>
             </nav>
-            <Switch>
-              <Route exact path="/" component={Component} />
-              <Route exact path="/login" component={Component} />
-              <Route exact path="/cart" component={Component} />
-              <Route exact path="/add-product" component={Component} />
-              <Route exact path="/products" component={Component} />
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/add-product" component={AddProduct} />
-              <Route exact path="/cart" component={Cart} />
 
+            <Switch>
+              <Route exact path="/" component={ProductList} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/cart" component={Cart} />
+              <Route exact path="/add-product" component={AddProduct} />
+              <Route exact path="/products" component={ProductList} />
             </Switch>
           </div>
         </Router>
@@ -101,115 +181,3 @@ export default class App extends Component {
     );
   }
 }
-constructor(props); {
-  super(props);
-  this.state = {
-    user: null
-  };
-}
-componentDidMount();{
-  let user = localStorage.getItem("user");
-  user = user ? JSON.parse(user) : null;
-  this.setState({ user });
-}
-login = (usn, pwd) => {
-  let user = data.users.find(u => u.username === usn && u.password === pwd);
-  if (user) {
-    this.setState({ user });
-    localStorage.setItem("user", JSON.stringify(user));
-    return true;
-  }
-  return false;
-};
-logout = e => {
-  e.preventDefault();
-  this.setState({ user: null });
-  localStorage.removeItem("user");
-
-};
-constructor(props); {
-  super(props);
-  this.state = {
-    user: null,
-    products: []
-  };
-}
-componentDidMount(); {
-  let user = localStorage.getItem("user");
-  let products = localStorage.getItem("products");
-
-  user = user ? JSON.parse(user) : null;
-  products = products ? JSON.parse(products) : data.initProducts;
-
-  this.setState({ user, products });
-}
-addProduct = (product, callback) => {
-  let products = this.state.products.slice();
-  products.push(product);
-  localStorage.setItem("products", JSON.stringify(products));
-  this.setState({ products }, () => callback && callback());
-};
-constructor(props); {
-  super(props);
-  this.state = {
-    user: null,
-    products: [],
-    Cart: {}
-  };
-}
-
-componentDidMount(); {
-  let user = localStorage.getItem("user");
-  let products = localStorage.getItem("products");
-  let cart = localStorage.getItem("cart");
-
-
-  products = products ? JSON.parse(products) : data.initProducts;
-  user = user ? JSON.parse(user) : null;
-  cart = cart? JSON.parse(cart) : {};
-
-  this.setState({ user, products, cart });
-}
-addToCart = cartItem => {
-  let cart = this.state.cart;
-  if (cart[cartItem.id]) {
-    cart[cartItem.id].amount += cartItem.amount;
-  } else {
-    cart[cartItem.id] = cartItem;
-  }
-  if (cart[cartItem.id].amount > cart[cartItem.id].product.stock) {
-    cart[cartItem.id].amount = cart[cartItem.id].product.stock;
-  }
-  localStorage.setItem("cart", JSON.stringify(cart));
-  this.setState({ cart });
-};
-removeFromCart = cartItemId => {
-  let cart = this.state.cart;
-  delete cart[cartItemId];
-  localStorage.setItem("cart", JSON.stringify(cart));
-  this.setState({ cart });
-};
-clearCart = () => {
-  let cart = {};
-  localStorage.removeItem("cart");
-  this.setState({ cart });
-};
-checkout = () => {
-  if (!this.state.user) {
-    this.routerRef.current.history.push("/login");
-    return;
-  }
-  const cart = this.state.cart;
-  const products = this.state.products.map(p => {
-    if (cart[p.name]) {
-      p.stock = p.stock - cart[p.name].amount;
-    }
-    return p;
-  });
-  this.setState({ products });
-  this.clearCart();
-};
-
-
-
-

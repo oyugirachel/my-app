@@ -1,13 +1,14 @@
-import React, { Component, Fragment } from "react";
+import React, { Fragment } from "react";
 import ProductItem from "./ProductItem";
 import withContext from "../withContext";
+
 const ProductList = props => {
   const { products } = props.context;
   return (
     <Fragment>
       <div className="hero is-primary">
         <div className="hero-body container">
-          <h4 className="title">Our Products</h4>
+          <h4 className="title">Our Groceries</h4>
         </div>
       </div>
       <br />
@@ -33,4 +34,5 @@ const ProductList = props => {
     </Fragment>
   );
 };
+
 export default withContext(ProductList);

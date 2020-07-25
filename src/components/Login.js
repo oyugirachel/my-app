@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import withContext from "../withContext";
 import { Redirect } from "react-router-dom";
+
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -22,6 +23,7 @@ class Login extends Component {
       this.setState({ error: "Invalid Credentails" });
     }
   };
+
   render() {
     return !this.props.context.user ? (
       <Fragment>
@@ -71,4 +73,5 @@ class Login extends Component {
     );
   }
 }
+
 export default withContext(Login);

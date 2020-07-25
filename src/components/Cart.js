@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import withContext from "../withContext";
 import CartItem from "./CartItem";
+
 const Cart = props => {
   const { cart } = props.context;
   const cartKeys = Object.keys(cart || {});
@@ -50,4 +51,5 @@ const Cart = props => {
     </Fragment>
   );
 };
+
 export default withContext(Cart);

@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import React from "react";
+
 const ProductItem = props => {
   const { product } = props;
   return (
@@ -8,17 +9,18 @@ const ProductItem = props => {
           <div className="media-left">
             <figure className="image is-64x64">
               <img
-                src="https://bulma.io/images/placeholders/128x128.png"
-                alt="Image"
+                src="https://i.postimg.cc/PqGXSs4Q/download3.jpg"
+                alt="product"
               />
             </figure>
           </div>
           <div className="media-content">
             <b style={{ textTransform: "capitalize" }}>
               {product.name}{" "}
-              <span className="tag is-primary">${product.price}</span>
+              <span className="tag is-primary">Ksh.{product.price}</span>
             </b>
             <div>{product.shortDesc}</div>
+
             {product.stock > 0 ? (
               <small>{product.stock + " Available"}</small>
             ) : (
@@ -44,4 +46,5 @@ const ProductItem = props => {
     </div>
   );
 };
+
 export default ProductItem;
