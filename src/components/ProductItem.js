@@ -1,5 +1,7 @@
 import React from "react";
 
+
+
 const ProductItem = props => {
   const { product } = props;
   return (
@@ -9,9 +11,11 @@ const ProductItem = props => {
           <div className="media-left">
             <figure className="image is-64x64">
               <img
-                src="https://i.postimg.cc/PqGXSs4Q/download3.jpg"
+                src={product.image}
                 alt="product"
               />
+              
+              
             </figure>
           </div>
           <div className="media-content">

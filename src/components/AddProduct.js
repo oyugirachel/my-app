@@ -7,7 +7,8 @@ const initState = {
   price: "",
   stock: "",
   shortDesc: "",
-  description: ""
+  description: "",
+  image:""
 };
 
 class AddProduct extends Component {
@@ -18,7 +19,7 @@ class AddProduct extends Component {
 
   save = e => {
     e.preventDefault();
-    const { name, price, stock, shortDesc, description } = this.state;
+    const { name, price, stock, shortDesc, description,image } = this.state;
     if (name && price) {
       this.props.context.addProduct(
         {
@@ -26,6 +27,7 @@ class AddProduct extends Component {
           price,
           shortDesc,
           description,
+          image,
           stock: stock || 0
         },
         () => this.setState(initState)
@@ -39,13 +41,13 @@ class AddProduct extends Component {
     this.setState({ [e.target.name]: e.target.value, error: "" });
 
   render() {
-    const { name, price, stock, shortDesc, description } = this.state;
+    const { name, price, stock, shortDesc, description} = this.state;
     const { user } = this.props.context;
     return !(user && user.accessLevel < 1) ? (
       <Redirect to="/" />
     ) : (
       <Fragment>
-        <div className="hero is-primary ">
+        <div classNamse="hero is-primary ">
           <div className="hero-body container">
             <h4 className="title">Login</h4>
           </div>
@@ -109,6 +111,7 @@ class AddProduct extends Component {
                   onChange={this.handleChange}
                 />
               </div>
+              
               {this.state.error && (
                 <div className="error">{this.state.error}</div>
               )}

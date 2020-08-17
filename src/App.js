@@ -6,6 +6,7 @@ import AddProduct from "./components/AddProduct";
 import Cart from "./components/Cart";
 import data from "./data";
 import Context from "./Context";
+// import redpepper from '../images/redpepper.jpeg';
 
 export default class App extends Component {
   constructor(props) {
@@ -33,6 +34,10 @@ export default class App extends Component {
     this.setState({ user: null });
     localStorage.removeItem("user");
   };
+
+
+
+  
 
   addProduct = (product, callback) => {
     let products = this.state.products.slice();
