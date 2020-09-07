@@ -12,7 +12,7 @@ export default {
       shortDesc: "Sweet and delicious, Simply the best",
       description:
         "Red Pepper is made from the ground fruit of a plant in the Capsicum family. The fruits, commonly known as  chili peppers, are fiery red or orange pods which rarely grow to more than 4 inches in length. ... Red pepper is a pungent, hot powder with a strong bite.",
-      image:"images/redpepper.jpeg"
+      image:"https://i.postimg.cc/ydBLB2Wg/redpepper.jpg"
    },
     {
       name: "carrots",
@@ -21,7 +21,7 @@ export default {
       shortDesc: "A healthy vegetable good especially for strong eyesight",
       description:
         "The carrot is a root vegetable, usually orange in colour, though purple, black, red, white, and yellow cultivars exist. ",
-      image: "images/carrots.jpeg"
+      image: "https://i.postimg.cc/yNCPX2mQ/carrots.jpg"
     },
     {
       name: "Cucumber",
@@ -30,7 +30,7 @@ export default {
       shortDesc: "cucumbers are low in calories and contain a good amount of water",
       description:
         "Cucumbers provide various nutrients but are low in calories, fat, cholesterol, and sodium",
-      image:"images/cucumber.jpeg"
+      image:"https://i.postimg.cc/gJT4RjNR/cucumber.jpg"
     },
     {
       name: "kales",
@@ -39,7 +39,7 @@ export default {
       shortDesc: "Kale is a green, leafy, cruciferous vegetable that is rich in nutrients.",
       description:
         "Kale is a green, leafy, cruciferous vegetable that is rich in nutrients. It may offer a range of health benefits for the whole body",
-      image:"images/kales.jpeg"
+      image:"https://i.postimg.cc/0yXChb14/kales.jpg"
     }
   ]
 };

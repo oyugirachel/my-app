@@ -10,7 +10,7 @@ const CartItem = props => {
           <div className="media-left">
             <figure className="image is-64x64">
               <img
-                src="https://i.postimg.cc/PqGXSs4Q/download3.jpg"
+                src={product.image}
                 alt="product"
               />
             </figure>
@@ -18,7 +18,7 @@ const CartItem = props => {
           <div className="media-content">
             <b style={{ textTransform: "capitalize" }}>
               {product.name}{" "}
-              <span className="tag is-primary">${product.price}</span>
+              <span className="tag is-primary">ksh.{product.price}</span>
             </b>
             <div>{product.shortDesc}</div>
             <small>{`${amount} in cart`}</small>

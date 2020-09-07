@@ -2,6 +2,7 @@ import React from "react";
 
 
 
+
 const ProductItem = props => {
   const { product } = props;
   return (
@@ -11,9 +12,19 @@ const ProductItem = props => {
           <div className="media-left">
             <figure className="image is-64x64">
               <img
-                src={product.image}
+                src="https://i.postimg.cc/ydBLB2Wg/redpepper.jpg"
                 alt="product"
               />
+              
+              
+              
+            </figure>
+            <figure className="image is-64x64">
+              <img
+                src="https://i.postimg.cc/yNCPX2mQ/carrots.jpg"
+                alt="product"
+              />
+              
               
               
             </figure>

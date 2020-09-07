@@ -69,6 +69,17 @@ class AddProduct extends Component {
                 />
               </div>
               <div className="field">
+                <label className="label">Image: </label>
+                <input
+                  className="input"
+                  type="text"
+                  name="name"
+                  value={name}
+                  onChange={this.handleChange}
+                  required
+                />
+              </div>
+              <div className="field">
                 <label className="label">Price: </label>
                 <input
                   className="input"
